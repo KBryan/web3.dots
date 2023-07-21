@@ -1,2 +1,2 @@
 # web3.dots
-Web3 enabled Plugin Power Unity3d DOTS Technology
+Web3 enabled Plugin Unity3d DOTS Technology
