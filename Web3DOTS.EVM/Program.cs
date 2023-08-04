@@ -53,7 +53,9 @@ namespace Web3Dots
             var account = new Account(privateKey, 5);
 
             //var provider = new JsonRpcProvider(account,"https://staging-v3.skalenodes.com/v1/staging-faint-slimy-achird");
+
             var provider = new JsonRpcProvider(account,providerUrl);
+
             var accountBalance = await provider.GetBalance("0xd25b827D92b0fd656A1c829933e9b0b836d5C3e2");
             var blockNumber = await provider.GetBlockNumber();
             var getBlock = await provider.GetBlock();
@@ -112,7 +114,7 @@ namespace Web3Dots
 
         private static async Task GetNetwork()
         {
-            var provider = new JsonRpcProvider("https://staging-v3.skalenodes.com/v1/staging-faint-slimy-achird");
+            var provider = new JsonRpcProvider(providerUrl);
             var network = await provider.GetNetwork();
             Console.WriteLine($"Network name: {network.Name}");
             Console.WriteLine($"Network chain id: {network.ChainId}");
