@@ -5,7 +5,6 @@ using System.Reflection;
 using Nethereum.ABI.Model;
 using Nethereum.RPC.Eth.DTOs;
 using Web3Dots.RPC.Contracts.Extensions;
-using Web3Unity.Scripts.Library.Ethers.Contracts.Builders;
 
 namespace Web3Dots.RPC.Contracts.Builders.FilterInput
 {
