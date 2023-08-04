@@ -25,3 +25,15 @@ Console.WriteLine("Transaction Data: " + JsonConvert.SerializeObject(getTransact
 Console.WriteLine("Name of Token: " + callData[0]);
 Console.WriteLine("Player Balance: " + callBalance[0]);
 ```
+
+## Create HdWallet
+
+```csharp
+
+    Wallet wallet = new Wallet(Wordlist.English, WordCount.Twelve);
+    Debug.Log("HD Wallet Path: " + wallet.Path);
+    Debug.Log("HD Public Address: " + wallet.GetAccount(0).Address);
+    Debug.Log("HD Private Key: " + wallet.GetAccount(0).PrivateKey);
+    Debug.Log("HD Account Public Key: " + wallet.GetAccount(0).PublicKey);
+
+```
