@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
@@ -43,7 +44,9 @@ namespace Web3Dots.RPC.Utils.Services
         /// <returns>The transaction hash as a string.</returns>
         public async Task<string> SendTransactionAsync(string signedTransactionData)
         {
-            return await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransactionData);
+            var result = await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransactionData);
+            Console.WriteLine("Transaction Hash: " + result);
+            return result;
         }
 
         /// <summary>
