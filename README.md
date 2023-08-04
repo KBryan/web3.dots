@@ -1,7 +1,5 @@
-# web3.dots
-Web3 enabled Plugin Unity3d DOTS Technology
-
-Another .Net implementation of the Ethereum RPC for Unity DOTS
+# Web3DOTS
+Another .Net implementation of the Ethereum RPC and Contract Interactions. Designed for Unity DOTS games
 
 Usage:
 

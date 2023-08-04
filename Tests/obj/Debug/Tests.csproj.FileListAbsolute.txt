@@ -1,0 +1,2 @@
+/Users/kwamebryan/Documents/GitHub/EthereumRPCSharp/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache
+/Users/kwamebryan/Documents/GitHub/EthereumRPCSharp/Tests/obj/Debug/Tests.csproj.CoreCompileInputs.cache
