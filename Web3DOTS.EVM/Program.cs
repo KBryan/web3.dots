@@ -36,7 +36,7 @@ namespace Web3Dots
             var account = new Account("ADD_KEY", 5);
 
             //var provider = new JsonRpcProvider(account,"https://staging-v3.skalenodes.com/v1/staging-faint-slimy-achird");
-            var provider = new JsonRpcProvider(account,"https://goerli.infura.io/v3/2ea27900c8784457ac03b1cbd4e7b8f0");
+            var provider = new JsonRpcProvider(account,"https://goerli.infura.io/v3/ADD_API_KEY");
             var accountBalance = await provider.GetBalance("0xd25b827D92b0fd656A1c829933e9b0b836d5C3e2");
             var blockNumber = await provider.GetBlockNumber();
             var getBlock = await provider.GetBlock();
