@@ -10,5 +10,7 @@ namespace Web3Dots.RPC.Utils.Interfaces
         Task<string> CreateAndSignTransactionAsync(TransactionInput txInput);
 
         Task<string> SendTransactionAsync(string signedTransactionData);
+
+        Task<string> TransferEther(string to, decimal amount);
     }
 }

@@ -1,8 +1,11 @@
 using System;
+using System.Numerics;
 using System.Threading.Tasks;
+using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Web3.Accounts;
+using Org.BouncyCastle.Math;
 using Web3Dots.RPC.Utils.Interfaces;
 
 namespace Web3Dots.RPC.Utils.Services
@@ -20,9 +23,10 @@ namespace Web3Dots.RPC.Utils.Services
         /// </summary>
         /// <param name="privateKey">The private key associated with the Ethereum account.</param>
         /// <param name="url">The URL of the Ethereum node.</param>
-        public EthereumService(string privateKey, string url)
+        public EthereumService(string privateKey, string url, HexBigInteger chainId)
         {
-            _web3 = new Nethereum.Web3.Web3(new Account(privateKey), url);
+            _account = new Account(privateKey,chainId);
+            _web3 = new Nethereum.Web3.Web3(_account, url);
         }
 
         /// <summary>
@@ -47,6 +51,16 @@ namespace Web3Dots.RPC.Utils.Services
             var result = await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransactionData);
             Console.WriteLine("Transaction Hash: " + result);
             return result;
+        }
+
+        public async Task<string> TransferEther(string to, decimal amount)
+        {
+            
+            var balance = await _web3.Eth.GetBalance.SendRequestAsync(_account.Address);
+            
+            var tx = await _web3.Eth.GetEtherTransferService()
+                .TransferEtherAndWaitForReceiptAsync(to, 00000000000001,2, 75000,75000);
+            return tx.TransactionHash;
         }
 
         /// <summary>
