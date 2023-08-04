@@ -1,4 +1,4 @@
-# Web3DOTS
+# Web3.DOTS
 Another .Net implementation of the Ethereum RPC and Contract Interactions. Designed for Unity DOTS games
 
 Usage:
