@@ -59,7 +59,7 @@ namespace Web3Dots.RPC.Utils.Services
             var balance = await _web3.Eth.GetBalance.SendRequestAsync(_account.Address);
             
             var tx = await _web3.Eth.GetEtherTransferService()
-                .TransferEtherAndWaitForReceiptAsync(to, 00000000000001,2, 75000,75000);
+                .TransferEtherAndWaitForReceiptAsync(to, amount,2, 75000,75000);
             return tx.TransactionHash;
         }
 
