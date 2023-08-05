@@ -65,6 +65,6 @@
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CoreCompileInputs.cache
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CopyComplete
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.pdb
-/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe.config
-/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe
-/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.dll.config
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.dll
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.dll

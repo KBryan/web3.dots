@@ -1,11 +1,9 @@
 using System;
-using System.Numerics;
 using System.Threading.Tasks;
 using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Web3.Accounts;
-using Org.BouncyCastle.Math;
 using Web3Dots.RPC.Utils.Interfaces;
 
 namespace Web3Dots.RPC.Utils.Services
@@ -23,6 +21,7 @@ namespace Web3Dots.RPC.Utils.Services
         /// </summary>
         /// <param name="privateKey">The private key associated with the Ethereum account.</param>
         /// <param name="url">The URL of the Ethereum node.</param>
+        /// <param name="chainId"></param>
         public EthereumService(string privateKey, string url, HexBigInteger chainId)
         {
             _account = new Account(privateKey,chainId);

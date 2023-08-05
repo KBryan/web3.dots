@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Net;
-using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +14,6 @@ using Newtonsoft.Json;
 using Web3Dots.RPC.Contracts;
 using Web3Dots.RPC.Providers;
 using Web3Dots.RPC.Signers;
-using Web3Dots.RPC.Transactions;
 using Web3Dots.RPC.Utils.Services;
 
 namespace Web3Dots
@@ -97,7 +93,7 @@ namespace Web3Dots
                 };
 
                 var signedTransactionData = await _ethereumService.CreateAndSignTransactionAsync(txInput);
-                Console.WriteLine($"Signed transaction data: {signedTransactionData}");
+                Console.WriteLine($"Signed transaction data Erc721: {signedTransactionData}");
             }
             catch (Exception e)
             {
@@ -138,7 +134,7 @@ namespace Web3Dots
                 };
 
                 var signedTransactionData = await _ethereumService.CreateAndSignTransactionAsync(txInput);
-                Console.WriteLine($"Signed transaction data: {signedTransactionData}");
+                Console.WriteLine($"Signed transaction data Mint Auto Graph: {signedTransactionData}");
             }
             catch (Exception e)
             {
