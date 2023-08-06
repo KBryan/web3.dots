@@ -6,8 +6,7 @@ Usage:
 ### Get RPC Data
 
 ```cs
-
-    private static async Task GetRpcData()
+        private static async Task GetRpcData()
         {
             var ethereumService = new EthereumService(PrivateKey, ProviderUrl,new HexBigInteger(5));
             var accountBalance = await ethereumService._provider.GetBalance("0x525b19d1cA89c3620b4A12B7D36970E410c8C5f5");
@@ -21,7 +20,6 @@ Usage:
             Console.WriteLine("Block Info: " + JsonConvert.SerializeObject(getBlock, Formatting.Indented));
 
         }
-
 ```
 
 ### Transfer Ether
