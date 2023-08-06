@@ -4,6 +4,7 @@ using Nethereum.Hex.HexTypes;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Web3.Accounts;
+using Web3Dots.RPC.Providers;
 using Web3Dots.RPC.Utils.Interfaces;
 
 namespace Web3Dots.RPC.Utils.Services
@@ -15,6 +16,7 @@ namespace Web3Dots.RPC.Utils.Services
     {
         private readonly Nethereum.Web3.Web3 _web3;
         private Account _account;
+        public JsonRpcProvider _provider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EthereumService"/> class.
@@ -25,6 +27,7 @@ namespace Web3Dots.RPC.Utils.Services
         public EthereumService(string privateKey, string url, HexBigInteger chainId)
         {
             _account = new Account(privateKey,chainId);
+            _provider= new JsonRpcProvider(url);
             _web3 = new Nethereum.Web3.Web3(_account, url);
         }
 
@@ -68,5 +71,10 @@ namespace Web3Dots.RPC.Utils.Services
         /// <param name="privateKey">The private key.</param>
         /// <returns>The Ethereum address as a string.</returns>
         public string GetAddressW3A(string privateKey) => new EthECKey(privateKey).GetPublicAddress();
+
+        public JsonRpcProvider GetProvider()
+        {
+            return _provider;
+        }
     }
 }
