@@ -24,7 +24,7 @@ Usage:
 
 ```
 
-### Transfer Ethere
+### Transfer Ether
 
 ```cs
         private static async Task TransferEther()
