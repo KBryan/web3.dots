@@ -44,16 +44,16 @@ Usage:
             try
             {
                 var contract = new Contract(MintingContractAbi, MintingContractAddress,ethereumService.GetProvider());
-                Console.WriteLine("Account: " + ethereumService.GetAddressW3A(PrivateKey));
+                Console.WriteLine("Account: " + ethereumService.GetAddress(PrivateKey));
                 var calldata = contract.Calldata(method, new object[]
                 {
-                    ethereumService.GetAddressW3A(PrivateKey),
+                    ethereumService.GetAddress(PrivateKey),
                 });
 
                 TransactionInput txInput = new TransactionInput
                 {
                     To = MintingNftContractAddress,
-                    From = ethereumService.GetAddressW3A(PrivateKey),
+                    From = ethereumService.GetAddress(PrivateKey),
                     Value = new HexBigInteger(0), // Convert the Ether amount to Wei
                     Data = calldata,
                     GasPrice = new HexBigInteger(100000),
