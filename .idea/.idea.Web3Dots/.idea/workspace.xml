@@ -11,12 +11,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Interfaces/IEthereumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Interfaces/IEthereumService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Services/EthereumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Services/EthereumService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.dll.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +83,8 @@
       <option name="presentableId" value="Default" />
       <updated>1691167050804</updated>
       <workItem from="1691167051853" duration="31012000" />
-      <workItem from="1691280201150" duration="7753000" />
+      <workItem from="1691280201150" duration="9996000" />
+      <workItem from="1691355430627" duration="3814000" />
     </task>
     <servers />
   </component>

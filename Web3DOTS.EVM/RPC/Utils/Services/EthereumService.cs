@@ -30,17 +30,26 @@ namespace Web3Dots.RPC.Utils.Services
             _provider= new JsonRpcProvider(url);
             _web3 = new Nethereum.Web3.Web3(_account, url);
         }
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EthereumService"/> class.
+        /// </summary>
+        /// <param name="url">The URL of the Ethereum node.</param>
+        public EthereumService(string url)
+        {
+            _provider= new JsonRpcProvider(url);
+        }
 
         /// <summary>
         /// Creates and signs a transaction asynchronously.
         /// </summary>
         /// <param name="txInput">The transaction input parameters.</param>
         /// <returns>The signed transaction data as a string.</returns>
-        public async Task<string> CreateAndSignTransactionAsync(TransactionInput txInput)
+        public async Task<string> CreateSignAndSendTransactionAsync(TransactionInput txInput)
         {
             var signedTransaction = await _web3.Eth.TransactionManager.SignTransactionAsync(txInput);
-            await SendTransactionAsync(signedTransaction);
-            return signedTransaction;
+            var txHash = await SendTransactionAsync(signedTransaction);
+            return txHash;
         }
 
         /// <summary>
@@ -51,7 +60,6 @@ namespace Web3Dots.RPC.Utils.Services
         public async Task<string> SendTransactionAsync(string signedTransactionData)
         {
             var result = await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(signedTransactionData);
-            Console.WriteLine("Transaction Hash: " + result);
             return result;
         }
 
