@@ -5,7 +5,7 @@ namespace Web3Dots.RPC.Utils.Interfaces
 {
     public interface IEthereumService
     {
-        string GetAddressW3A(string privateKey);
+        string GetAddress(string privateKey);
 
         Task<string> CreateSignAndSendTransactionAsync(TransactionInput txInput);
 

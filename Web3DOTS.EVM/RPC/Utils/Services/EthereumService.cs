@@ -78,7 +78,7 @@ namespace Web3Dots.RPC.Utils.Services
         /// </summary>
         /// <param name="privateKey">The private key.</param>
         /// <returns>The Ethereum address as a string.</returns>
-        public string GetAddressW3A(string privateKey) => new EthECKey(privateKey).GetPublicAddress();
+        public string GetAddress(string privateKey) => new EthECKey(privateKey).GetPublicAddress();
 
         public JsonRpcProvider GetProvider()
         {
