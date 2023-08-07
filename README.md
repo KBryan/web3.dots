@@ -8,7 +8,7 @@ Usage:
 ```cs
         private static async Task GetRpcData()
         {
-            var ethereumService = new EthereumService(PrivateKey, ProviderUrl,new HexBigInteger(5));
+            var ethereumService = new EthereumService( ProviderUrl);
             var accountBalance = await ethereumService._provider.GetBalance("0x525b19d1cA89c3620b4A12B7D36970E410c8C5f5");
             var blockNumber = await ethereumService._provider.GetBlockNumber();
             var getBlock = await ethereumService._provider.GetBlock();
@@ -18,7 +18,6 @@ Usage:
             Console.WriteLine("Account Balance: " + accountBalance);
             Console.WriteLine("Block Number: " + blockNumber);
             Console.WriteLine("Block Info: " + JsonConvert.SerializeObject(getBlock, Formatting.Indented));
-
         }
 ```
 
