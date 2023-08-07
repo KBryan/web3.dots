@@ -45,7 +45,7 @@ namespace Web3Dots.RPC.Utils.Services
         /// </summary>
         /// <param name="txInput">The transaction input parameters.</param>
         /// <returns>The signed transaction data as a string.</returns>
-        public async Task<string> CreateSignAndSendTransactionAsync(TransactionInput txInput)
+        public async Task<string> SignAndSendTransactionAsync(TransactionInput txInput)
         {
             var signedTransaction = await _web3.Eth.TransactionManager.SignTransactionAsync(txInput);
             var txHash = await SendTransactionAsync(signedTransaction);

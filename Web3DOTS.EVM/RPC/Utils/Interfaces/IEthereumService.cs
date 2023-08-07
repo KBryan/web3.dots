@@ -7,7 +7,7 @@ namespace Web3Dots.RPC.Utils.Interfaces
     {
         string GetAddress(string privateKey);
 
-        Task<string> CreateSignAndSendTransactionAsync(TransactionInput txInput);
+        Task<string> SignAndSendTransactionAsync(TransactionInput txInput);
 
         Task<string> SendTransactionAsync(string signedTransactionData);
 
