@@ -44,7 +44,6 @@ Usage:
             try
             {
                 var contract = new Contract(MintingContractAbi, MintingContractAddress,ethereumService.GetProvider());
-                Console.WriteLine("Contract: " + contract.Calldata("safeMint"));
                 Console.WriteLine("Account: " + ethereumService.GetAddressW3A(PrivateKey));
                 var calldata = contract.Calldata(method, new object[]
                 {
