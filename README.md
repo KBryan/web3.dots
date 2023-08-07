@@ -62,8 +62,8 @@ Usage:
                     Gas = new HexBigInteger(100000),
                 };
 
-                var signedTransactionData = await ethereumService.CreateAndSignTransactionAsync(txInput);
-                Console.WriteLine($"Signed transaction data Erc721: {signedTransactionData}");
+                var signedTransactionData = await ethereumService.CreateSignAndSendTransactionAsync(txInput);
+                Console.WriteLine($"Transaction Hash: {signedTransactionData}");
             }
             catch (Exception e)
             {
