@@ -60,8 +60,8 @@ Usage:
                     Gas = new HexBigInteger(100000),
                 };
 
-                var signedTransactionData = await ethereumService.CreateSignAndSendTransactionAsync(txInput);
-                Console.WriteLine($"Transaction Hash: {signedTransactionData}");
+                var txHesh = await ethereumService.CreateSignAndSendTransactionAsync(txInput);
+                Console.WriteLine($"Transaction Hash: {txHesh}");
             }
             catch (Exception e)
             {
