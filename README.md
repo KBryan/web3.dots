@@ -71,10 +71,9 @@ Usage:
 ```
 
 
-## Mint NFT / NEthereum
+## Mint NFT / Function Types
 
 ```cs
-        // nethereum style send transaction mint nft
         [Function("safeMint")]
         public class SafeMintFunction : FunctionMessage
         {
