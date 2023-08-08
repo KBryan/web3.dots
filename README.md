@@ -69,3 +69,28 @@ Usage:
             }
         }
 ```
+
+
+## Mint NFT / NEthereum
+
+```cs
+        // nethereum style send transaction mint nft
+        [Function("safeMint")]
+        public class SafeMintFunction : FunctionMessage
+        {
+            [Parameter("address", "to")] public string To { get; set; }
+        }
+        public static async Task Mint2()
+        {
+            var ethereumService = new EthereumService(PrivateKey, ProviderUrl, new HexBigInteger(5));
+            var safeMint = new SafeMintFunction()
+            {
+                To = "0x525b19d1cA89c3620b4A12B7D36970E410c8C5f5",
+            };
+            safeMint.Gas = new HexBigInteger(100000);
+            safeMint.GasPrice = new HexBigInteger(100000);
+            var contractHandler = ethereumService._web3.Eth.GetContractHandler(MintingContractAddress);
+            var txHash = await contractHandler.SendRequestAsync(safeMint);
+            Console.WriteLine("Transaction Hash: " + txHash);
+        }
+```
