@@ -205,30 +205,6 @@ namespace Web3Dots.RPC.Contracts
         public string Calldata(string method, object[] parameters = null)
         {
             parameters ??= MyUtils.Empty<object>();
-#if UNITY_EDITOR_WIN || UNITY_EDITOR_OSX || UNITY_IOS || UNITY_ANDROID
-            var data = new
-            {
-                Client = "Desktop/Mobile",
-                Version = "v2",
-                ProjectID = PlayerPrefs.GetString("ProjectID"),
-                Player = Web3Wallet.Web3Wallet.Sha3(PlayerPrefs.GetString("Account") + PlayerPrefs.GetString("ProjectID")),
-                Method = method,
-                Params = parameters
-            };
-            Logging.SendGameData(data);
-#endif
-#if UNITY_WEBGL
-            var dataWebGL = new
-            {
-                Client = "WebGL",
-                Version = "v2",
-                ProjectID = PlayerPrefs.GetString("ProjectID"),
-                Player = Web3Wallet.Web3Wallet.Sha3(PlayerPrefs.GetString("Account") + PlayerPrefs.GetString("ProjectID")),
-                Method = method,
-                Params = parameters
-            };
-            var dataObject = GameLogger.Log("", "", dataWebGL);
-#endif
             var function = _contractBuilder.GetFunctionBuilder(method);
             return function.GetData(parameters);
         }

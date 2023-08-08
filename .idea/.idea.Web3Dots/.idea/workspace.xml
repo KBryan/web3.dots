@@ -9,9 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b505fde7-dec2-4e00-b2ab-e64c9562ad54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Services/EthereumService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/Services/EthereumService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Contracts/Contract.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Contracts/Contract.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" afterDir="false" />
     </list>
@@ -24,8 +23,11 @@
     <setting file="file://$USER_HOME$/Desktop/Web3AuthWallet/SignW3A.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/Desktop/Web3AuthWallet/TransferW3A.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ztx-unity/Assets/Scenes/EthersPlayGround/Utils/SignatureVerifier.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14275cdba315531db756c85aa4bc81dfcef08341f2335e255b9def5f314c6/HexBigInteger.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4b76dd27af7ba9b84ebdea964a1faab6ab387bdccbe1cb0a0726857e5e53d/ContractHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/708566f7ac417145b54b5df07242a48fb3755fc9dfdd356f137278c5bc418727/FunctionMessage.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/974c971e4876e65b719d2fdcb5c6649e7dad5410ce50b4766fa3f5ecd2cf75b5/IEthApiContractService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f920b8e386d7ab3b91c77d347759c62f69ad640f1d61392ea3174585f32e3c/ContractMessageBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -85,7 +87,7 @@
       <workItem from="1691167051853" duration="31012000" />
       <workItem from="1691280201150" duration="9996000" />
       <workItem from="1691355430627" duration="9211000" />
-      <workItem from="1691446891624" duration="5646000" />
+      <workItem from="1691446891624" duration="9083000" />
     </task>
     <servers />
   </component>
