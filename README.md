@@ -54,7 +54,7 @@ Usage:
                 {
                     To = MintingNftContractAddress,
                     From = ethereumService.GetAddress(PrivateKey),
-                    Value = new HexBigInteger(0), // Convert the Ether amount to Wei
+                    Value = new HexBigInteger(0),
                     Data = calldata,
                     GasPrice = new HexBigInteger(100000),
                     Gas = new HexBigInteger(100000),
