@@ -54,7 +54,7 @@ Usage:
                 {
                     To = MintingNftContractAddress,
                     From = ethereumService.GetAddress(PrivateKey),
-                    Value = new HexBigInteger(0), // Convert the Ether amount to Wei
+                    Value = new HexBigInteger(0),
                     Data = calldata,
                     GasPrice = new HexBigInteger(100000),
                     Gas = new HexBigInteger(100000),
@@ -95,3 +95,20 @@ Usage:
             Console.WriteLine("Transaction Hash: " + txHash);
         }
 ```
+
+## Sign Message
+
+```cs
+        public override Task<string> SignMessage(byte[] message)
+        {
+            var hash = new Sha3Keccack().CalculateHash(message);
+            return Task.FromResult(_signingKey.Sign(new uint256(hash)).ToCompact().ToHex());
+        }
+
+        public override Task<string> SignMessage(string message)
+        {
+            var hash = new Sha3Keccack().CalculateHash(message);
+            return Task.FromResult(_signingKey.Sign(new uint256(hash)).ToCompact().ToHex());
+        }
+```
+
