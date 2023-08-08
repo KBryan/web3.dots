@@ -87,6 +87,8 @@ Usage:
             {
                 To = "0x525b19d1cA89c3620b4A12B7D36970E410c8C5f5",
             };
+            safeMint.To = MintingNftContractAddress;
+            safeMint.FromAddress = ethereumService.GetAddress(PrivateKey);
             safeMint.Gas = new HexBigInteger(100000);
             safeMint.GasPrice = new HexBigInteger(100000);
             var contractHandler = ethereumService._web3.Eth.GetContractHandler(MintingContractAddress);
