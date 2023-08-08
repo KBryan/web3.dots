@@ -14,7 +14,7 @@ namespace Web3Dots.RPC.Utils.Services
     /// </summary>
     public class EthereumService : IEthereumService
     {
-        private readonly Nethereum.Web3.Web3 _web3;
+        public readonly Nethereum.Web3.Web3 _web3;
         private Account _account;
         public JsonRpcProvider _provider;
 
