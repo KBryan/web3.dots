@@ -7,6 +7,7 @@ using Nethereum.ABI;
 using Nethereum.Contracts.Standards.ERC721.ContractDefinition;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Hex.HexTypes;
+using Nethereum.RLP;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Util;
@@ -59,7 +60,14 @@ namespace Web3Dots
         
             // ABI encode the HashInputsParams fields
             var encodedData = abiEncode.GetABIEncoded(
-                input
+                input.Recipient,
+                input.TokenId,
+                input.Units,
+                input.Salt,
+                input.NftContract,
+                input.PaymentToken,
+                input.PaymentAmount,
+                input.ExpiryToken
             );
 
             // Compute Keccak256 hash
@@ -120,7 +128,20 @@ namespace Web3Dots
             TimeSpan diff = date - origin;
             return (long)diff.TotalSeconds;
         }
+        public static byte[] StringToBytes32(string input)
+        {
+            if (input == null) throw new ArgumentNullException(nameof(input));
 
+            if (input.Length > 32)
+            {
+                throw new ArgumentException("String too long for bytes32");
+            }
+
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            byte[] result = new byte[32];
+            Buffer.BlockCopy(inputBytes, 0, result, 0, inputBytes.Length);
+            return result;
+        }
         // standard way of minting 
         public static async Task MintAutoGraph()
         {
@@ -171,8 +192,8 @@ namespace Web3Dots
                     ethereumService.GetAddress(PrivateKey),
                     0,
                     1,
-                    msgHash.PadTo32Bytes(),
-                    getSalt().ToHex(),
+                    msgHash,
+                    123,
                     signature1.HexToByteArray(),
                     PlaceablesContractAddress,
                     //0x0000000000000000000000000000000000000000,
@@ -183,7 +204,7 @@ namespace Web3Dots
                 Console.WriteLine("Account: : " + ethereumService.GetAddress(PrivateKey));
                 Console.WriteLine("Autograph: : " + AutographMinterContractAddress);
                 Console.WriteLine("Gas: : " + ethereumService._provider.GetGasPrice().Result);
-                
+
                 TransactionInput txInput = new TransactionInput
                 {
                     To = AutographMinterContractAddress,
@@ -203,24 +224,6 @@ namespace Web3Dots
             }
         }
 
-        private static byte[] getSalt()
-        {
-            using (var random = new RNGCryptoServiceProvider())
-            {
-                // Define the length of the salt array (32 bytes for bytes32)
-                const int length = 32;
-
-                // Initialize the salt array
-                byte[] salt = new byte[length];
-
-                // Generate random bytes
-                random.GetNonZeroBytes(salt);
-
-                // Return the salt
-                return salt;
-            }
-        }
-        
         // standard way of minting 
         public static async Task Mint()
         {

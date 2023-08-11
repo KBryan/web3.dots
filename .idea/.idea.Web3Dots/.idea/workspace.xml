@@ -9,12 +9,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b505fde7-dec2-4e00-b2ab-e64c9562ad54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Signers/Wallet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Signers/Wallet.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/SignatureVerifier.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/RPC/Utils/SignatureVerifier.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
