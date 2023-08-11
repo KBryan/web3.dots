@@ -21,8 +21,7 @@ namespace Web3Dots.RPC.Utils
             {
                 return key.GetPublicAddress();
             }
-            
-            return false.ToString();
+            return "Address not equal to signer...";
         }
     }
 }

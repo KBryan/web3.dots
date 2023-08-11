@@ -25,6 +25,8 @@ namespace Web3Dots.RPC.Signers
 
             //throw new NotImplementedException();
         }
+        
+       
 
         public Wallet(HDNode.HDNode hdNode, BaseProvider baseProvider = null) : base(null)
         {
