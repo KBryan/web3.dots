@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using NBitcoin;
@@ -7,6 +6,7 @@ using Nethereum.ABI;
 using Nethereum.Contracts.Standards.ERC721.ContractDefinition;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Hex.HexTypes;
+using Nethereum.Model;
 using Nethereum.RLP;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
@@ -22,44 +22,49 @@ namespace Web3Dots
     using Nethereum.ABI.FunctionEncoding.Attributes;
     using System.Numerics;
 
+    
     public class HashInputsParams
     {
-        [Parameter("address", order: 1)]
         public string Recipient { get; set; }
-
-        [Parameter("uint256", order: 2)]
         public BigInteger TokenId { get; set; }
+        public BigInteger Units { get; set; }
+        public byte[] Salt { get; set; }
+        public string NftContract { get; set; }
+        public string PaymentToken { get; set; }
+        public BigInteger PaymentAmount { get; set; }
+        public BigInteger ExpiryToken { get; set; }
+    }
+    
+    public class VerifyInputParams
+    {
+        [Parameter("bytes32", "inputHash", 1)]
+        public byte[] InputHash { get; set; }
 
-        [Parameter("uint256", order: 3)]
+        [Parameter("bytes32", "generatedHash", 2)]
+        public byte[] GeneratedHash { get; set; }
+
+        [Parameter("bytes", "signature", 3)]
+        public byte[] Signature { get; set; }
+
+        [Parameter("uint256", "units", 4)]
         public BigInteger Units { get; set; }
 
-        [Parameter("uint256", order: 4)]
-        public BigInteger Salt { get; set; }
-
-        [Parameter("address", order: 5)]
+        [Parameter("address", "nftContract", 5)]
         public string NftContract { get; set; }
 
-        // This value seems to always be address(0) based on the provided function
-        [Parameter("address", order: 6)]
-        public string PaymentToken { get; set; } = "0x0000000000000000000000000000000000000000";
-
-        // This value seems to always be 0 based on the provided function
-        [Parameter("uint256", order: 7)]
-        public BigInteger PaymentAmount { get; set; } = 0;
-
-        [Parameter("uint256", order: 8)]
+        [Parameter("uint256", "expiryToken", 6)]
         public BigInteger ExpiryToken { get; set; }
     }
 
-    
+
     public class HashService
     {
         public byte[] GetHash(HashInputsParams input)
         {
-            var abiEncode = new ABIEncode();
-        
-            // ABI encode the HashInputsParams fields
-            var encodedData = abiEncode.GetABIEncoded(
+            var encoder = new ABIEncode();
+
+            // Encode the parameters
+            var encodedData = EncodePacked(
                 input.Recipient,
                 input.TokenId,
                 input.Units,
@@ -69,10 +74,28 @@ namespace Web3Dots
                 input.PaymentAmount,
                 input.ExpiryToken
             );
+            // Convert to Ethereum signed message hash
+            var message = Encoding.UTF8.GetBytes("\x19" + "Ethereum Signed Message:\n" + encodedData.Length + encodedData);
+            var ethSignedMessageHash = new EthereumMessageSigner().Hash(message);
+            Console.WriteLine("Eth Signed Message Hash: " + ethSignedMessageHash.ToHex());
+            return ethSignedMessageHash;
+        }
+        public byte[] EncodePacked(params object[] values)
+        {
+            var packedData = "";
 
-            // Compute Keccak256 hash
-            var sha3Keccak = new Sha3Keccack();
-            return sha3Keccak.CalculateHash(encodedData);
+            foreach (var value in values)
+            {
+                if (value is string stringValue)
+                {
+                    packedData += stringValue.RemoveHexPrefix();
+                }
+                else if (value is BigInteger bigIntValue)
+                {
+                    packedData += bigIntValue.ToByteArray().ToHex().RemoveHexPrefix();
+                }
+            }
+            return packedData.HexToByteArray();
         }
     }
 
@@ -90,13 +113,100 @@ namespace Web3Dots
          
          public static async Task Main(string[] args)
         {
-            var service = new HashService();
             //await GetRpcData();
             //await TransferEther();
             //await Mint();
             //await Mint2();
             await MintAutoGraph();
-            //CreateEthWallet();
+        }
+         
+           // standard way of minting 
+        public static async Task MintAutoGraph()
+        {
+            
+            var ethereumService = new EthereumService(PrivateKey, ProviderUrl, new HexBigInteger(421613));
+            try
+            {
+                var contract = new Contract(AutoGraphMinter, AutographMinterContractAddress,ethereumService.GetProvider());
+                long expiryToken = ConvertToUnixTimestamp(DateTime.UtcNow) - 1000;
+
+                var inputParams = new HashInputsParams
+                {
+                    Recipient = ethereumService.GetAddress(PrivateKey),
+                    TokenId = 0,
+                    Units = 1,
+                    Salt =  123.ToBytesForRLPEncoding(),
+                    NftContract = PlaceablesContractAddress,
+                    //PaymentToken = "0x0000000000000000000000000000000000000000",
+                    //PaymentAmount = 0,
+                    ExpiryToken = expiryToken
+                };
+                
+                var hashService = new HashService();
+                byte[] hash = hashService.GetHash(inputParams);
+                string hashHex = "0x" + BitConverter.ToString(hash).Replace("-", "").ToLower();
+                Console.WriteLine("Input Params Hash: " + hashHex);
+                var signer1 = new EthereumMessageSigner();
+                var signature1 = signer1.EncodeUTF8AndSign(hashHex, new EthECKey(PrivateKey));
+                Console.WriteLine("Signature: " + signature1);
+                string recoveredAddress = signer1.EncodeUTF8AndEcRecover(hashHex, signature1);
+                Console.WriteLine("Recovered Address: " + recoveredAddress);
+                bool isSameSigner = recoveredAddress.Equals(ethereumService.GetAddress(PrivateKey), StringComparison.OrdinalIgnoreCase);
+                Console.WriteLine("Is Same Signer: " + isSameSigner);
+                
+                Console.WriteLine("Hash Length: " + hashHex.Length);
+                Console.WriteLine($"Hash: {hashHex}");
+                
+                var _getHashData = contract.Calldata("getHash", new object[]
+                {
+                    inputParams
+                });
+                Console.WriteLine("Contract Call Get Hash: : " +  _getHashData);
+                byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
+                var key = new EthECKey(PrivateKey);
+                EthECDSASignature signature = key.SignAndCalculateV(msgHash);
+                var signer = new EthereumMessageSigner();
+                string recoveredAddressGetHash = signer.EcRecover(msgHash, signature);
+                Console.WriteLine($"Signer's Address: {recoveredAddressGetHash}");
+                Console.WriteLine("Message Hash: " + msgHash.Length);
+                // smart contract method to call
+                string method = "mintForFree";
+               var _calldata = contract.Calldata(method, new object[]
+                {
+                    ethereumService.GetAddress(PrivateKey),
+                    0,
+                    1,
+                    msgHash,
+                    123,
+                    signature.To64ByteArray(),
+                    PlaceablesContractAddress,
+                    //0x0000000000000000000000000000000000000000,
+                    //0,
+                    expiryToken
+                });
+                Console.WriteLine("CallData: : " + _calldata);
+                Console.WriteLine("Account: : " + ethereumService.GetAddress(PrivateKey));
+                Console.WriteLine("Autograph: : " + AutographMinterContractAddress);
+                Console.WriteLine("Gas: : " + ethereumService._provider.GetGasPrice().Result);
+
+                TransactionInput txInput = new TransactionInput
+                {
+                    To = AutographMinterContractAddress,
+                    From = ethereumService.GetAddress(PrivateKey),
+                    Value = new HexBigInteger(0),
+                    Data = _calldata,
+                    GasPrice =  ethereumService._provider.GetGasPrice().Result,
+                    Gas = new HexBigInteger(100000),
+                };
+                
+                Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
+                var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
+                Console.WriteLine($"Transaction Hash: {txHash}");
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e);
+            }
         }
         
         public BaseProvider BaseProvider { get; }
@@ -142,87 +252,8 @@ namespace Web3Dots
             Buffer.BlockCopy(inputBytes, 0, result, 0, inputBytes.Length);
             return result;
         }
-        // standard way of minting 
-        public static async Task MintAutoGraph()
-        {
-            // smart contract method to call
-            string method = "mintForFree";
-            var ethereumService = new EthereumService(PrivateKey, ProviderUrl, new HexBigInteger(421613));
-            try
-            {
-                var contract = new Contract(AutoGraphMinter, AutographMinterContractAddress,ethereumService.GetProvider());
-                long expiryToken = ConvertToUnixTimestamp(DateTime.UtcNow) - 1000;
 
-                var inputParams = new HashInputsParams
-                {
-                    Recipient = ethereumService.GetAddress(PrivateKey),
-                    TokenId = 0,
-                    Units = 1,
-                    Salt = 100,
-                    NftContract = PlaceablesContractAddress,
-                    PaymentToken = "0x0000000000000000000000000000000000000000",
-                    PaymentAmount = 0,
-                    ExpiryToken = expiryToken
-                };
-                
-                var hashService = new HashService();
-                byte[] hash = hashService.GetHash(inputParams);
-                string hashHex = "0x" + BitConverter.ToString(hash).Replace("-", "").ToLower();
-                Console.WriteLine("Input Params Hash: " + hashHex);
-                var signer1 = new EthereumMessageSigner();
-                var signature1 = signer1.EncodeUTF8AndSign(hashHex, new EthECKey(PrivateKey));
-                Console.WriteLine("Signature: " + signature1);
-                string recoveredAddress = signer1.EncodeUTF8AndEcRecover(hashHex, signature1);
-                Console.WriteLine("Recovered Address: " + recoveredAddress);
-                bool isSameSigner = recoveredAddress.Equals(ethereumService.GetAddress(PrivateKey), StringComparison.OrdinalIgnoreCase);
-                Console.WriteLine("Is Same Signer: " + isSameSigner);
-                
-                Console.WriteLine("Hash Length: " + hashHex.Length);
-                Console.WriteLine($"Hash: {hashHex}");
-                
-                var _getHashData = contract.Calldata("getHash", new object[]
-                {
-                    inputParams
-                });
-                Console.WriteLine("Call Get Hash: : " +  _getHashData);
-                byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
-                Console.WriteLine("Message Hash: " + msgHash.Length);
-               var _calldata = contract.Calldata(method, new object[]
-                {
-                    ethereumService.GetAddress(PrivateKey),
-                    0,
-                    1,
-                    msgHash,
-                    123,
-                    signature1.HexToByteArray(),
-                    PlaceablesContractAddress,
-                    //0x0000000000000000000000000000000000000000,
-                    //0,
-                    expiryToken
-                });
-                Console.WriteLine("CallData: : " + _calldata);
-                Console.WriteLine("Account: : " + ethereumService.GetAddress(PrivateKey));
-                Console.WriteLine("Autograph: : " + AutographMinterContractAddress);
-                Console.WriteLine("Gas: : " + ethereumService._provider.GetGasPrice().Result);
-
-                TransactionInput txInput = new TransactionInput
-                {
-                    To = AutographMinterContractAddress,
-                    From = ethereumService.GetAddress(PrivateKey),
-                    Value = new HexBigInteger(0),
-                    Data = _calldata,
-                    GasPrice = ethereumService._provider.GetGasPrice().Result,
-                    Gas = new HexBigInteger(75000),
-                };
-                Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
-                var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
-                Console.WriteLine($"Transaction Hash: {txHash}");
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine(e);
-            }
-        }
+      
 
         // standard way of minting 
         public static async Task Mint()
@@ -289,26 +320,6 @@ namespace Web3Dots
             return Task.FromResult(_signingKey.Sign(new uint256(hash)).ToCompact().ToHex());
         }
         
-
-        static byte[] Increment(byte[] bytes)
-        {
-            // Increment the least significant byte by 1
-            byte[] result = new byte[bytes.Length];
-            Array.Copy(bytes, result, bytes.Length);
-            for (int i = result.Length - 1; i >= 0; i--)
-            {
-                if (result[i] < 255)
-                {
-                    result[i]++;
-                    break;
-                }
-                else
-                {
-                    result[i] = 0;
-                }
-            }
-            return result;
-        }
         public Program(IProvider provider, BaseProvider baseProvider, Key signingKey) : base(provider)
         {
             BaseProvider = baseProvider;
