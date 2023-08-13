@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NBitcoin;
@@ -26,13 +27,13 @@ namespace Web3Dots
     public class HashInputsParams
     {
         public string Recipient { get; set; }
-        public BigInteger TokenId { get; set; }
-        public BigInteger Units { get; set; }
-        public byte[] Salt { get; set; }
+        public HexBigInteger TokenId { get; set; }
+        public HexBigInteger Units { get; set; }
+        public HexBigInteger Salt { get; set; }
         public string NftContract { get; set; }
         public string PaymentToken { get; set; }
-        public BigInteger PaymentAmount { get; set; }
-        public BigInteger ExpiryToken { get; set; }
+        public HexBigInteger PaymentAmount { get; set; }
+        public HexBigInteger ExpiryToken { get; set; }
     }
     
     public class VerifyInputParams
@@ -64,7 +65,7 @@ namespace Web3Dots
             var encoder = new ABIEncode();
 
             // Encode the parameters
-            var encodedData = EncodePacked(
+            var encodedData = encoder.GetABIEncodedPacked(
                 input.Recipient,
                 input.TokenId,
                 input.Units,
@@ -75,36 +76,22 @@ namespace Web3Dots
                 input.ExpiryToken
             );
             // Convert to Ethereum signed message hash
-            var message = Encoding.UTF8.GetBytes("\x19" + "Ethereum Signed Message:\n" + encodedData.Length + encodedData);
-            var ethSignedMessageHash = new EthereumMessageSigner().Hash(message);
+            var prefix = "\x19Ethereum Signed Message:\n" + encodedData.Length;
+            var message = Encoding.UTF8.GetBytes(prefix).Concat(encodedData).ToArray();
+
+            var ethSignedMessageHash = new Sha3Keccack().CalculateHash(message);
             Console.WriteLine("Eth Signed Message Hash: " + ethSignedMessageHash.ToHex());
             return ethSignedMessageHash;
         }
-        public byte[] EncodePacked(params object[] values)
-        {
-            var packedData = "";
-
-            foreach (var value in values)
-            {
-                if (value is string stringValue)
-                {
-                    packedData += stringValue.RemoveHexPrefix();
-                }
-                else if (value is BigInteger bigIntValue)
-                {
-                    packedData += bigIntValue.ToByteArray().ToHex().RemoveHexPrefix();
-                }
-            }
-            return packedData.HexToByteArray();
-        }
     }
 
+    
     public class Program : BaseSigner
     {
          private readonly Key _signingKey;
          private static string PrivateKey = "ADD_PRIVATE_KEY";
          private const string MintingContractAddress = "0xaf0E6743bc86ebb35eBE9531d82FB326D466c4b5";
-         private const string PlaceablesContractAddress = "0x312A00D9183c155Bac1eE736441536D8c15429D7";
+         private const string PlaceablesContractAddress = "0x7D0FAa703CD188a630b516a69Ceb2c87D9896DdA";
          private const string MintingNftContractAddress = "ADD_MINTING_CONTRACT_ADDRESS";
          private const string AutographMinterContractAddress = "0x6b8D486fD16f94811bC41f5129f1Ec076A76D385";
          private const string MintingContractAbi = "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"approved\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"ApprovalForAll\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"getApproved\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"}],\"name\":\"isApprovedForAll\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"name\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"ownerOf\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"safeMint\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"},{\"internalType\":\"bytes\",\"name\":\"data\",\"type\":\"bytes\"}],\"name\":\"safeTransferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"operator\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"approved\",\"type\":\"bool\"}],\"name\":\"setApprovalForAll\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"symbol\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"tokenURI\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"tokenId\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]";
@@ -133,15 +120,15 @@ namespace Web3Dots
                 var inputParams = new HashInputsParams
                 {
                     Recipient = ethereumService.GetAddress(PrivateKey),
-                    TokenId = 0,
-                    Units = 1,
-                    Salt =  123.ToBytesForRLPEncoding(),
+                    TokenId = new HexBigInteger(0),
+                    Units = new HexBigInteger(1),
+                    Salt =  new HexBigInteger(100),
                     NftContract = PlaceablesContractAddress,
-                    //PaymentToken = "0x0000000000000000000000000000000000000000",
-                    //PaymentAmount = 0,
-                    ExpiryToken = expiryToken
+                    PaymentToken = "0x0000000000000000000000000000000000000000",
+                    PaymentAmount = new HexBigInteger(0),
+                    ExpiryToken = new HexBigInteger(expiryToken)
                 };
-                
+
                 var hashService = new HashService();
                 byte[] hash = hashService.GetHash(inputParams);
                 string hashHex = "0x" + BitConverter.ToString(hash).Replace("-", "").ToLower();
@@ -156,7 +143,7 @@ namespace Web3Dots
                 
                 Console.WriteLine("Hash Length: " + hashHex.Length);
                 Console.WriteLine($"Hash: {hashHex}");
-                
+               
                 var _getHashData = contract.Calldata("getHash", new object[]
                 {
                     inputParams
@@ -171,6 +158,7 @@ namespace Web3Dots
                 Console.WriteLine("Message Hash: " + msgHash.Length);
                 // smart contract method to call
                 string method = "mintForFree";
+                
                var _calldata = contract.Calldata(method, new object[]
                 {
                     ethereumService.GetAddress(PrivateKey),
@@ -200,8 +188,8 @@ namespace Web3Dots
                 };
                 
                 Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
-                var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
-                Console.WriteLine($"Transaction Hash: {txHash}");
+                //var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
+                //Console.WriteLine($"Transaction Hash: {txHash}");
             }
             catch (Exception e)
             {
