@@ -56,8 +56,7 @@ namespace Web3Dots
         [Parameter("uint256", "expiryToken", 6)]
         public BigInteger ExpiryToken { get; set; }
     }
-
-
+    
     public class HashService
     {
         public byte[] GetHash(HashInputsParams input)
@@ -82,6 +81,27 @@ namespace Web3Dots
             var ethSignedMessageHash = new Sha3Keccack().CalculateHash(message);
             Console.WriteLine("Eth Signed Message Hash: " + ethSignedMessageHash.ToHex());
             return ethSignedMessageHash;
+        }
+    }
+    
+    public class EthereumSignature
+    {
+        public string R { get; set; }
+        public string S { get; set; }
+        public int V { get; set; }
+
+        public static EthereumSignature SplitSignature(string signature)
+        {
+            if (string.IsNullOrWhiteSpace(signature) || signature.Length != 132 || !signature.StartsWith("0x"))
+            {
+                throw new ArgumentException("Invalid Ethereum signature format", nameof(signature));
+            }
+
+            var r = signature.Substring(2, 64);
+            var s = signature.Substring(66, 64);
+            var v = int.Parse(signature.Substring(130, 2), System.Globalization.NumberStyles.HexNumber);
+
+            return new EthereumSignature { R = r, S = s, V = v };
         }
     }
 
@@ -128,6 +148,18 @@ namespace Web3Dots
                     PaymentAmount = new HexBigInteger(0),
                     ExpiryToken = new HexBigInteger(expiryToken)
                 };
+                
+                var input1= new object[]
+                {
+                    ethereumService.GetAddress(PrivateKey),
+                    0,
+                    1,
+                    100,
+                    PlaceablesContractAddress,
+                    "0x0000000000000000000000000000000000000000",
+                    0,
+                    expiryToken
+                };
 
                 var hashService = new HashService();
                 byte[] hash = hashService.GetHash(inputParams);
@@ -135,6 +167,12 @@ namespace Web3Dots
                 Console.WriteLine("Input Params Hash: " + hashHex);
                 var signer1 = new EthereumMessageSigner();
                 var signature1 = signer1.EncodeUTF8AndSign(hashHex, new EthECKey(PrivateKey));
+                
+                var result = EthereumSignature.SplitSignature(signature1);
+
+                Console.WriteLine($"r: {result.R}");
+                Console.WriteLine($"s: {result.S}");
+                Console.WriteLine($"v: {result.V}");
                 Console.WriteLine("Signature: " + signature1);
                 string recoveredAddress = signer1.EncodeUTF8AndEcRecover(hashHex, signature1);
                 Console.WriteLine("Recovered Address: " + recoveredAddress);
@@ -143,13 +181,13 @@ namespace Web3Dots
                 
                 Console.WriteLine("Hash Length: " + hashHex.Length);
                 Console.WriteLine($"Hash: {hashHex}");
-               
+
                 var _getHashData = contract.Calldata("getHash", new object[]
                 {
-                    inputParams
+                    
                 });
                 Console.WriteLine("Contract Call Get Hash: : " +  _getHashData);
-                byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
+                /*byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
                 var key = new EthECKey(PrivateKey);
                 EthECDSASignature signature = key.SignAndCalculateV(msgHash);
                 var signer = new EthereumMessageSigner();
@@ -189,7 +227,7 @@ namespace Web3Dots
                 
                 Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
                 //var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
-                //Console.WriteLine($"Transaction Hash: {txHash}");
+                //Console.WriteLine($"Transaction Hash: {txHash}");*/
             }
             catch (Exception e)
             {
