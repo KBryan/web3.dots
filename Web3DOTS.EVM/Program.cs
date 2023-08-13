@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NBitcoin;
@@ -8,7 +7,6 @@ using Nethereum.Contracts.Standards.ERC721.ContractDefinition;
 using Nethereum.Hex.HexConvertors.Extensions;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Model;
-using Nethereum.RLP;
 using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Signer;
 using Nethereum.Util;
@@ -27,62 +25,96 @@ namespace Web3Dots
     public class HashInputsParams
     {
         public string Recipient { get; set; }
-        public HexBigInteger TokenId { get; set; }
-        public HexBigInteger Units { get; set; }
-        public HexBigInteger Salt { get; set; }
+        public BigInteger TokenId { get; set; }
+        public BigInteger Units { get; set; }
+        public BigInteger Salt { get; set; }
         public string NftContract { get; set; }
         public string PaymentToken { get; set; }
-        public HexBigInteger PaymentAmount { get; set; }
-        public HexBigInteger ExpiryToken { get; set; }
-    }
-    
-    public class VerifyInputParams
-    {
-        [Parameter("bytes32", "inputHash", 1)]
-        public byte[] InputHash { get; set; }
-
-        [Parameter("bytes32", "generatedHash", 2)]
-        public byte[] GeneratedHash { get; set; }
-
-        [Parameter("bytes", "signature", 3)]
-        public byte[] Signature { get; set; }
-
-        [Parameter("uint256", "units", 4)]
-        public BigInteger Units { get; set; }
-
-        [Parameter("address", "nftContract", 5)]
-        public string NftContract { get; set; }
-
-        [Parameter("uint256", "expiryToken", 6)]
+        public BigInteger PaymentAmount { get; set; }
         public BigInteger ExpiryToken { get; set; }
     }
-    
+
     public class HashService
     {
         public byte[] GetHash(HashInputsParams input)
         {
+            var abiEncoded = ABIEncode(input);
+            var hash = new Sha3Keccack().CalculateHash(abiEncoded);
+            return hash;
+        }
+
+        private byte[] ABIEncode(HashInputsParams input)
+        {
+            // Create an ABI encoder
             var encoder = new ABIEncode();
 
-            // Encode the parameters
-            var encodedData = encoder.GetABIEncodedPacked(
-                input.Recipient,
-                input.TokenId,
-                input.Units,
-                input.Salt,
-                input.NftContract,
-                input.PaymentToken,
-                input.PaymentAmount,
-                input.ExpiryToken
+            // ABI encode the input properties
+            return encoder.GetABIEncoded(
+                new ABIValue("address", input.Recipient),
+                new ABIValue("uint256", input.TokenId),
+                new ABIValue("uint256", input.Units),
+                new ABIValue("uint256", input.Salt),
+                new ABIValue("address", input.NftContract),
+                new ABIValue("address", input.PaymentToken),
+                new ABIValue("uint256", input.PaymentAmount),
+                new ABIValue("uint256", input.ExpiryToken)
             );
-            // Convert to Ethereum signed message hash
-            var prefix = "\x19Ethereum Signed Message:\n" + encodedData.Length;
-            var message = Encoding.UTF8.GetBytes(prefix).Concat(encodedData).ToArray();
-
-            var ethSignedMessageHash = new Sha3Keccack().CalculateHash(message);
-            Console.WriteLine("Eth Signed Message Hash: " + ethSignedMessageHash.ToHex());
-            return ethSignedMessageHash;
         }
     }
+/*
+// [0x5Bf3DC356A5e41021AE208667a835DfB143Bf4b4,0,1,100,0x7D0FAa703CD188a630b516a69Ceb2c87D9896DdA,0x0000000000000000000000000000000000000000,0,1691906390]
+* // SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Verify {
+
+    /// @dev - HashInputsParams is a struct that contains the params for generating a hash
+    /// @param recipient - Address of the receiver of the NFT
+    /// @param tokenId - ID of the NFT
+    /// @param units - Amount of NFTs to mint
+    /// @param salt - Salt of the message to be signed
+    /// @param nftContract - Address of the NFT contract to Mint from
+    /// @param paymentToken - Address of the token to be used for payment
+    /// @param paymentAmount - Amount of the token to be used for payment
+    /// @param expiryToken - Expiry token timestamp. ie create a timestamp.now on creation of the hash
+    struct HashInputsParams {
+        address recipient;
+        uint256 tokenId; // nft token id to be minted
+        uint256 units; // units to be minted
+        uint256 salt;
+        address nftContract; // nft contract address
+        address paymentToken; // token to be used for payment if payment is required
+        uint256 paymentAmount; // amount of token to be used for payment if payment is required
+        uint256 expiryToken;
+    }
+
+    function VerifyMessage(bytes32 _hashedMessage, uint8 _v, bytes32 _r, bytes32 _s) public pure returns (address) {
+        bytes memory prefix = "\x19Ethereum Signed Message:\n32";
+        bytes32 prefixedHashMessage = keccak256(abi.encodePacked(prefix, _hashedMessage));
+        address signer = ecrecover(prefixedHashMessage, _v, _r, _s);
+        return signer;
+    }
+
+     /// @dev - Returns the hash of the message
+    /// @param input - hashInputs struct
+    function getHash(HashInputsParams memory input) public pure returns (bytes32) {
+        bytes32 hash = keccak256(
+            abi.encode(
+                input.recipient,
+                input.tokenId,
+                input.units,
+                input.salt,
+                input.nftContract,
+                input.paymentToken,
+                input.paymentAmount,
+                input.expiryToken
+            )
+        );
+        return hash;
+    }
+
+}
+*/
     
     public class EthereumSignature
     {
@@ -136,17 +168,18 @@ namespace Web3Dots
             {
                 var contract = new Contract(AutoGraphMinter, AutographMinterContractAddress,ethereumService.GetProvider());
                 long expiryToken = ConvertToUnixTimestamp(DateTime.UtcNow) - 1000;
-
+                Console.WriteLine("Expiry Token: " + expiryToken);
+                // example tuple for smart contract
                 var inputParams = new HashInputsParams
                 {
                     Recipient = ethereumService.GetAddress(PrivateKey),
-                    TokenId = new HexBigInteger(0),
-                    Units = new HexBigInteger(1),
-                    Salt =  new HexBigInteger(100),
+                    TokenId = new BigInteger(0),
+                    Units = new BigInteger(1),
+                    Salt =  new BigInteger(100),
                     NftContract = PlaceablesContractAddress,
                     PaymentToken = "0x0000000000000000000000000000000000000000",
-                    PaymentAmount = new HexBigInteger(0),
-                    ExpiryToken = new HexBigInteger(expiryToken)
+                    PaymentAmount = new BigInteger(0),
+                    ExpiryToken = new BigInteger(expiryToken)
                 };
                 
                 var input1= new object[]
@@ -166,15 +199,16 @@ namespace Web3Dots
                 string hashHex = "0x" + BitConverter.ToString(hash).Replace("-", "").ToLower();
                 Console.WriteLine("Input Params Hash: " + hashHex);
                 var signer1 = new EthereumMessageSigner();
-                var signature1 = signer1.EncodeUTF8AndSign(hashHex, new EthECKey(PrivateKey));
+                var signature1 = signer1.Sign(hash,PrivateKey);
                 
                 var result = EthereumSignature.SplitSignature(signature1);
 
-                Console.WriteLine($"r: {result.R}");
-                Console.WriteLine($"s: {result.S}");
+                Console.WriteLine($"r: {"0x" + result.R}");
+                Console.WriteLine($"s: {"0x" + result.S}");
                 Console.WriteLine($"v: {result.V}");
                 Console.WriteLine("Signature: " + signature1);
-                string recoveredAddress = signer1.EncodeUTF8AndEcRecover(hashHex, signature1);
+                
+                string recoveredAddress = signer1.EcRecover(hash,signature1);
                 Console.WriteLine("Recovered Address: " + recoveredAddress);
                 bool isSameSigner = recoveredAddress.Equals(ethereumService.GetAddress(PrivateKey), StringComparison.OrdinalIgnoreCase);
                 Console.WriteLine("Is Same Signer: " + isSameSigner);
@@ -184,7 +218,7 @@ namespace Web3Dots
 
                 var _getHashData = contract.Calldata("getHash", new object[]
                 {
-                    
+                    inputParams
                 });
                 Console.WriteLine("Contract Call Get Hash: : " +  _getHashData);
                 byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
@@ -226,15 +260,15 @@ namespace Web3Dots
                 };
                 
                 Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
-                var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
-                Console.WriteLine($"Transaction Hash: {txHash}");
+                //var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
+                //Console.WriteLine($"Transaction Hash: {txHash}");
             }
             catch (Exception e)
             {
                 Console.Error.WriteLine(e);
             }
         }
-        
+        // 0x9b263e70f75c9fee1d8b23bdf5d66f80ab60e6dcd08e4687458af015b30ae490
         public BaseProvider BaseProvider { get; }
 
         private static async Task GetRpcData()
