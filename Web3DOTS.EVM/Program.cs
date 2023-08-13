@@ -187,7 +187,7 @@ namespace Web3Dots
                     
                 });
                 Console.WriteLine("Contract Call Get Hash: : " +  _getHashData);
-                /*byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
+                byte[] msgHash = new Sha3Keccack().CalculateHash(Encoding.UTF8.GetBytes(_getHashData));
                 var key = new EthECKey(PrivateKey);
                 EthECDSASignature signature = key.SignAndCalculateV(msgHash);
                 var signer = new EthereumMessageSigner();
@@ -226,8 +226,8 @@ namespace Web3Dots
                 };
                 
                 Console.WriteLine("Transaction Input: " + JsonConvert.SerializeObject(txInput, Formatting.Indented));
-                //var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
-                //Console.WriteLine($"Transaction Hash: {txHash}");*/
+                var txHash = await ethereumService.SignAndSendTransactionAsync(txInput);
+                Console.WriteLine($"Transaction Hash: {txHash}");
             }
             catch (Exception e)
             {
