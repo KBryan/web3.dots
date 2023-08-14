@@ -19,14 +19,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$USER_HOME$/Desktop/Web3AuthWallet/SignW3A.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$USER_HOME$/Desktop/Web3AuthWallet/TransferW3A.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../ztx-unity/Assets/Scenes/EthersPlayGround/Utils/SignatureVerifier.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/14275cdba315531db756c85aa4bc81dfcef08341f2335e255b9def5f314c6/HexBigInteger.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/166bee6e4ce6ecbb3cb8def6c9739db83fa2130e1f09a0bf2a769ed9ab8a/Bytes32TypeEncoder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4b76dd27af7ba9b84ebdea964a1faab6ab387bdccbe1cb0a0726857e5e53d/ContractHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/708566f7ac417145b54b5df07242a48fb3755fc9dfdd356f137278c5bc418727/FunctionMessage.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/823b9710578b10ab5e4bc590b296ef9bcc44b521dc4528db2f079974b260e1/ERC721Definition.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/974c971e4876e65b719d2fdcb5c6649e7dad5410ce50b4766fa3f5ecd2cf75b5/IEthApiContractService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/997327df9cca106bf0ae99d2abbd43b1cf11b9987847b91fbb32bf2215a3b35/Account.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd831ded596816fde5138b7785f2f22cb8bd5e5136013244a3ef522ed7df5eb/Bytes32TypeDecoder.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f920b8e386d7ab3b91c77d347759c62f69ad640f1d61392ea3174585f32e3c/ContractMessageBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
