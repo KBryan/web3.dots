@@ -3,6 +3,12 @@ Another .Net implementation of the Ethereum RPC and Contract Interactions. Desig
 
 Usage:
 
+### Installation
+
+```
+dotnet add package web3.net --version 0.1.0
+```
+
 ### Get RPC Data
 
 ```cs
