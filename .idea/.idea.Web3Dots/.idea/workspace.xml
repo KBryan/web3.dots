@@ -9,9 +9,15 @@
   <component name="ChangeListManager">
     <list default="true" id="b505fde7-dec2-4e00-b2ab-e64c9562ad54" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/packages.config" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +34,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/974c971e4876e65b719d2fdcb5c6649e7dad5410ce50b4766fa3f5ecd2cf75b5/IEthApiContractService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/997327df9cca106bf0ae99d2abbd43b1cf11b9987847b91fbb32bf2215a3b35/Account.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd831ded596816fde5138b7785f2f22cb8bd5e5136013244a3ef522ed7df5eb/Bytes32TypeDecoder.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c63e23d84b9522f35e7630616e487b9ac3a6dd57eff23605ecdaff34df6dce/Sha3Keccack.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/f920b8e386d7ab3b91c77d347759c62f69ad640f1d61392ea3174585f32e3c/ContractMessageBase.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -93,6 +100,14 @@
       <workItem from="1691714204700" duration="856000" />
       <workItem from="1691715178874" duration="7016000" />
       <workItem from="1691756866598" duration="3311000" />
+      <workItem from="1692191475110" duration="4617000" />
+      <workItem from="1692220644687" duration="3943000" />
+      <workItem from="1692243172452" duration="3789000" />
+      <workItem from="1692248263029" duration="5571000" />
+      <workItem from="1692278855233" duration="9218000" />
+      <workItem from="1692306480183" duration="969000" />
+      <workItem from="1692392223811" duration="18642000" />
+      <workItem from="1692532469600" duration="16893000" />
     </task>
     <servers />
   </component>
