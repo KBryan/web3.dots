@@ -36,7 +36,7 @@ namespace Verify
             var signer = new EthereumMessageSigner();
 
             EthECDSASignature signedMessage =
-                signer.SignAndCalculateV("8e816f85f71fa357deb8a50d864d52f456f89ae855e40d26812c021474fb2f79".HexToByteArray(),"a7b4eee5fee47ed331e6ccaad100730e9232b6521383f223308a430d5ce3f588");
+                signer.SignAndCalculateV("8e816f85f71fa357deb8a50d864d52f456f89ae855e40d26812c021474fb2f79".HexToByteArray(),"ADD_PRIVATE_KEY");
             Console.WriteLine("Signed Message: " + signedMessage.CreateStringSignature());
 
             await MintForFree();
