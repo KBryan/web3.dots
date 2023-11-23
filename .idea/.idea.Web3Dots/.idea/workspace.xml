@@ -11,13 +11,42 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Web3Dots/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Tests/obj/Debug/Tests.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Microsoft.Extensions.Logging.Abstractions.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Microsoft.Extensions.Logging.Abstractions.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Microsoft.Extensions.Logging.Abstractions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Microsoft.Extensions.Logging.Abstractions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/System.Buffers.dll" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/System.Buffers.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/Web3Dots.EVM.exe.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/web3.net.0.0.2.nupkg" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/bin/Debug/web3.net.0.0.2.nupkg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3DOTS.EVM.csproj.FileListAbsolute.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/obj/Debug/Web3Dots.EVM.exe.config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Web3DOTS.EVM/packages.config" beforeDir="false" afterPath="$PROJECT_DIR$/Web3DOTS.EVM/packages.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/Microsoft.Extensions.Logging.Abstractions.1.0.0/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/Microsoft.Extensions.Logging.Abstractions.1.0.0/Microsoft.Extensions.Logging.Abstractions.1.0.0.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/Microsoft.Extensions.Logging.Abstractions.1.0.0/lib/netstandard1.1/Microsoft.Extensions.Logging.Abstractions.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/Microsoft.Extensions.Logging.Abstractions.1.0.0/lib/netstandard1.1/Microsoft.Extensions.Logging.Abstractions.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/.signature.p7s" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/LICENSE.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/System.Buffers.4.5.0.nupkg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/THIRD-PARTY-NOTICES.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/netstandard1.1/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/netstandard1.1/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/netstandard2.0/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/netstandard2.0/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/lib/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/net45/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/net45/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/netcoreapp2.0/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/netstandard1.1/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/netstandard1.1/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/netstandard2.0/System.Buffers.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/netstandard2.0/System.Buffers.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/ref/uap10.0.16299/_._" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/useSharedDesignerContext.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/System.Buffers.4.5.0/version.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,7 +136,10 @@
       <workItem from="1692278855233" duration="9218000" />
       <workItem from="1692306480183" duration="969000" />
       <workItem from="1692392223811" duration="18642000" />
-      <workItem from="1692532469600" duration="16893000" />
+      <workItem from="1692532469600" duration="19703000" />
+      <workItem from="1692624772335" duration="3688000" />
+      <workItem from="1692649945535" duration="1469000" />
+      <workItem from="1700708197905" duration="376000" />
     </task>
     <servers />
   </component>
