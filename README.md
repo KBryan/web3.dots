@@ -1,4 +1,4 @@
-# Web3.DOTS
+# Web3.NET
 Another .Net implementation of the Ethereum RPC and Contract Interactions. Designed for Unity DOTS games but also works with 2020x.
 
 Usage:
