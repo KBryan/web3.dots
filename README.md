@@ -118,3 +118,19 @@ dotnet add package web3.net --version 0.1.0
         }
 ```
 
+## Get Pricing Data PancakeSwap
+
+```cs
+        // Interacting with router contract
+        var contractRouter = new Contract(contractRouterABI, addressRouter, provider);
+        string[] stringArray = new string[2] { addressFromBUSD, addressToWBNB };
+
+        // Fetching amounts out
+        var amountsOut = await contractRouter.Call("getAmountsOut", new object[] { amountIn, stringArray });
+
+        // Serialize 'amountsOut' to a JSON string
+        string serializedData =  JsonConvert.SerializeObject(amountsOut) ;
+          
+        List<List<BigInteger>> deserializedList = JsonConvert.DeserializeObject<List<List<BigInteger>>>(serializedData);
+```
+
