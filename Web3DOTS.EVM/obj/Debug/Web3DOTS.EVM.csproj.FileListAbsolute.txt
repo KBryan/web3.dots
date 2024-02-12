@@ -88,3 +88,6 @@
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/System.Text.Json.xml
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/System.Threading.Tasks.Extensions.xml
 /Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/System.ValueTuple.xml
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/ADRaffy.ENSNormalize.dll
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Nethereum.HdWallet.dll
+/Users/kwamebryan/Documents/GitHub/web3.dots/Web3DOTS.EVM/bin/Debug/Rijndael256.dll

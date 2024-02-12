@@ -33,7 +33,7 @@ namespace Web3Dots.RPC.Contracts.Builders
 
         public bool IsTransactionInputDataForFunction(string data)
         {
-            return FunctionCallDecoder.IsDataForFunction(FunctionABI.Sha3Signature, data);
+            return FunctionCallDecoder.IsDataForFunction(FunctionABI, data);
         }
 
         public List<ParameterOutput> DecodeInput(string data)
