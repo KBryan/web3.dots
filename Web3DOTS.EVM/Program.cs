@@ -25,8 +25,8 @@ namespace Verify
     public class VerifyConsole
     {
         // TODO: Specify wich network you are going to use.
-        const string network = "ADD_RPC_URL"; 
-        const string privateKey = "ADD_PRIVATE_KEY";
+        const string network = "https://mainnet.skalenodes.com/v1/green-giddy-denebola"; 
+        const string DUMMY_ACCOUNT_PK = "db3703ea928fcb7fa9af9a089e2e4511c417a7318b688bf6dd47092f84fb82a6";
 
         const string workingDirectory = @"Wallets\"; // Path where you want to store the Wallets
         public static async Task Main(string[] args)
@@ -340,26 +340,34 @@ namespace Verify
         }
         private static string SaveWalletToJsonFile(Wallet wallet, string password, string pathfile)
         {
-            //TODO: Encrypt and Save the Wallet to JSON.
-            string words = string.Join(" ", wallet.Words);
-            var encryptedWords = Rijndael.Encrypt(words, password, KeySize.Aes256);
-            string date = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-            var walletJsonData = new { encryptedWords = encryptedWords, date = date };
-            string json = JsonConvert.SerializeObject(walletJsonData);
-            Random random = new Random();
-            var fileName =
-                "EthereumWallet_"
-                + DateTime.Now.Year + "-"
-                + DateTime.Now.Month + "-"
-                + DateTime.Now.Day + "-"
-                + DateTime.Now.Hour + "-"
-                + DateTime.Now.Minute + "-"
-                + DateTime.Now.Second + "-"
-                + random.Next(0, 1000) + ".json";
-            File.WriteAllText(Path.Combine(pathfile, fileName), json);
-            WriteLine($"Wallet saved in file: {fileName}");
-            return fileName;
+            try
+            {
+                // Join words and encrypt
+                string words = string.Join(" ", wallet.Words);
+                var encryptedWords = Rijndael.Encrypt(words, password, KeySize.Aes256);
+        
+                // Use ISO 8601 format for date and time
+                string date = DateTime.UtcNow.ToString("o"); // Use 'o' for round-trip date/time pattern
+                var walletJsonData = new { encryptedWords, date };
+                string json = JsonConvert.SerializeObject(walletJsonData);
+
+                // Generate file name with a more simplified format
+                string fileName = $"EthereumWallet_{DateTime.UtcNow:yyyy-MM-ddTHH-mm-ss-fff}.json";
+        
+                // Write to file
+                string fullPath = Path.Combine(pathfile, fileName);
+                File.WriteAllText(fullPath, json);
+
+                Console.WriteLine($"Wallet saved in file: {fileName}");
+                return fileName;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred while saving the wallet: {ex.Message}");
+                return null; // or handle the error as appropriate
+            }
         }
+
 
         static Wallet LoadWalletFromJsonFile(string nameOfWalletFile, string path, string pass)
         {
@@ -508,7 +516,7 @@ namespace Verify
         public static async Task GetHashMessage()
         {
 
-            var account = new Nethereum.Web3.Accounts.Account(privateKey);
+            var account = new Nethereum.Web3.Accounts.Account(DUMMY_ACCOUNT_PK);
             var web3 = new Web3(account, network);
             
             var contractHandler = web3.Eth.GetContractHandler("0x65428e4937dbFc829ddBc6d8611E21D11559231D");
@@ -541,7 +549,7 @@ namespace Verify
         /// <returns>An asynchronous task that represents the operation, including the transaction receipt.</returns>
         static async Task MintForFree()
         {
-            var account = new Nethereum.Web3.Accounts.Account(privateKey,new BigInteger(421613));
+            var account = new Nethereum.Web3.Accounts.Account(DUMMY_ACCOUNT_PK,new BigInteger(421613));
             var web3 = new Web3(account, network);
             var signer = new EthereumMessageSigner();
             var contractHandler = web3.Eth.GetContractHandler("0x6b8D486fD16f94811bC41f5129f1Ec076A76D385");
